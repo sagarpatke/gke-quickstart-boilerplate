@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginx
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+    - hosts:
+        - http.my-test-domain.ml
+      secretName: nginx-http-cert-tls
+    - hosts:
+        - dns.my-test-domain.ml
+      secretName: nginx-dns-cert-tls
+  rules:
+    - host: http.my-test-domain.ml
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: nginx-service
+              servicePort: 80
+    - host: dns.my-test-domain.ml
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: nginx-service
+              servicePort: 80

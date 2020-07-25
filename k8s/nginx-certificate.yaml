@@ -1,0 +1,25 @@
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: nginx-http-cert
+spec:
+  dnsNames:
+    - http.my-test-domain.ml
+  secretName: nginx-http-cert-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: nginx-dns-cert
+  use-dns-solver: "true"
+spec:
+  dnsNames:
+    - dns.my-test-domain.ml
+  secretName: nginx-dns-cert-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
